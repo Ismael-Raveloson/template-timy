@@ -1,0 +1,27 @@
+/* main-layout.scss */
+.main-content {
+  padding-top: 70px; /* Navbar height */
+  padding-bottom: 20px;
+  transition: all 0.3s ease;
+}
+
+/* Mobile-First Padding optimization */
+@media (max-width: 575.98px) {
+  .main-content {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  
+  .container-fluid {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+}
+
+@media (min-width: 992px) {
+  .main-content {
+    margin-left: 250px; /* Sidebar width */
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+}

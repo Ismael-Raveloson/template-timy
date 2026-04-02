@@ -1,0 +1,174 @@
+
+<div class="row items-align-baseline">
+  <!-- Status Cards -->
+  <div class="col-md-12 col-lg-4">
+    <div class="card shadow eq-card mb-4">
+      <div class="card-body mb-n3">
+        <div class="row items-align-baseline h-100">
+          <div class="col-md-6 my-3">
+            <p class="mb-0"><strong class="mb-0 text-uppercase text-muted">Earning</strong></p>
+            <h3>$2,562</h3>
+            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          </div>
+          <div class="col-md-6 my-4 text-center">
+            <div class="chart-box mx-4">
+              <div id="radialbarWidget"></div>
+            </div>
+          </div>
+          <div class="col-md-6 border-top py-3">
+            <p class="mb-1"><strong class="text-muted">Cost</strong></p>
+            <h4 class="mb-0">108</h4>
+            <p class="small text-muted mb-0"><span>37.7% Last week</span></p>
+          </div> <!-- .col -->
+          <div class="col-md-6 border-top py-3">
+            <p class="mb-1"><strong class="text-muted">Revenue</strong></p>
+            <h4 class="mb-0">1168</h4>
+            <p class="small text-muted mb-0"><span>-18.9% Last week</span></p>
+          </div> <!-- .col -->
+        </div>
+      </div> <!-- .card-body -->
+    </div> <!-- .card -->
+  </div> <!-- .col -->
+  <div class="col-md-12 col-lg-4">
+    <div class="card shadow eq-card mb-4">
+      <div class="card-body">
+        <div class="chart-widget mb-2">
+          <div id="radialbar"></div>
+        </div>
+        <div class="row items-align-center">
+          <div class="col-4 text-center">
+            <p class="text-muted mb-1">Cost</p>
+            <h6 class="mb-1">$1,823</h6>
+            <p class="text-muted mb-0">+12%</p>
+          </div>
+          <div class="col-4 text-center">
+            <p class="text-muted mb-1">Revenue</p>
+            <h6 class="mb-1">$6,830</h6>
+            <p class="text-muted mb-0">+8%</p>
+          </div>
+          <div class="col-4 text-center">
+            <p class="text-muted mb-1">Earning</p>
+            <h6 class="mb-1">$4,830</h6>
+            <p class="text-muted mb-0">+8%</p>
+          </div>
+        </div>
+      </div> <!-- .card-body -->
+    </div> <!-- .card -->
+  </div> <!-- .col -->
+  <div class="col-md-12 col-lg-4">
+    <div class="card shadow eq-card mb-4">
+      <div class="card-body">
+        <div class="d-flex mt-3 mb-4">
+          <div class="flex-fill pt-2">
+            <p class="mb-0 text-muted">Total</p>
+            <h4 class="mb-0">108</h4>
+            <span class="small text-muted">+37.7%</span>
+          </div>
+          <div class="flex-fill chart-box mt-n2">
+            <div id="barChartWidget"></div>
+          </div>
+        </div> <!-- .d-flex -->
+        <div class="row border-top">
+          <div class="col-md-6 pt-4">
+            <h6 class="mb-0">108 <span class="small text-muted">+37.7%</span></h6>
+            <p class="mb-0 text-muted">Cost</p>
+          </div>
+          <div class="col-md-6 pt-4">
+            <h6 class="mb-0">1168 <span class="small text-muted">-18.9%</span></h6>
+            <p class="mb-0 text-muted">Revenue</p>
+          </div>
+        </div> <!-- .row -->
+      </div> <!-- .card-body -->
+    </div> <!-- .card -->
+  </div> <!-- .col-md -->
+</div> <!-- .row -->
+
+<div class="row">
+  <!-- Recent Activity -->
+  <div class="col-md-12 col-lg-4 mb-4">
+    <div class="card timeline shadow">
+      <div class="card-header">
+        <strong class="card-title">Recent Activity</strong>
+        <a class="float-right small text-muted" href="#!">View all</a>
+      </div>
+      <div class="card-body" data-simplebar style="height:355px; overflow-y: auto; overflow-x: hidden;">
+        <h6 class="text-uppercase text-muted mb-4">Today</h6>
+        
+        @for (item of recentActivity; track item.user) {
+          <div class="pb-3 timeline-item" [ngClass]="item.statusClass">
+            <div class="pl-5">
+              <div class="mb-1">
+                <strong>{{item.user}}</strong>
+                <span class="text-muted small mx-2">{{item.action}}</span>
+                <strong>{{item.project}}</strong>
+              </div>
+              
+              @if (item.images) {
+                <div class="row mb-3">
+                  @for (img of item.images; track img) {
+                    <div class="col"><img [src]="img" alt="..." class="img-fluid rounded"></div>
+                  }
+                </div>
+              }
+
+              @if (item.comment) {
+                <div class="card d-inline-flex mb-2">
+                  <div class="card-body bg-light py-2 px-3 small rounded">
+                    {{item.comment}}
+                  </div>
+                </div>
+              }
+
+              <p class="small text-muted">{{item.category}} <span class="badge badge-light">{{item.time}}</span></p>
+            </div>
+          </div>
+        }
+      </div> <!-- / .card-body -->
+    </div> <!-- / .card -->
+  </div> <!-- / .col-md-6 -->
+
+  <!-- Recent Data Table -->
+  <div class="col-md-12 col-lg-8">
+    <div class="card shadow">
+      <div class="card-header">
+        <strong class="card-title">Recent Data</strong>
+        <a class="float-right small text-muted" href="#!">View all</a>
+      </div>
+      <div class="card-body my-n2">
+        <table class="table table-striped table-hover table-borderless">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Address</th>
+              <th>Date</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (row of recentData; track row.id) {
+              <tr>
+                <td>{{row.id}}</td>
+                <th scope="col">{{row.name}}</th>
+                <td>{{row.address}}</td>
+                <td>{{row.date}}</td>
+                <td>
+                  <div class="dropdown">
+                    <button class="btn btn-sm dropdown-toggle more-vertical" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <span class="text-muted sr-only">Action</span>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                      <a class="dropdown-item" href="#">Edit</a>
+                      <a class="dropdown-item" href="#">Remove</a>
+                      <a class="dropdown-item" href="#">Assign</a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div> <!-- Striped rows -->
+</div> <!-- .row-->

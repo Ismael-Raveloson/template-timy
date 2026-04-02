@@ -1,0 +1,110 @@
+<!-- generic-data-table.html -->
+<div class="row">
+  <div class="col-md-12">
+    <div class="card shadow">
+      <div class="card-body">
+
+        <!-- Header Controls (Search & Page Size) -->
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-4">
+          <div class="d-flex align-items-center mb-3 mb-md-0 w-100 w-md-auto">
+            <span class="mr-2 text-nowrap">Afficher</span>
+            <select class="form-control form-control-sm" style="width: 70px;" (change)="onPageSizeChange($event)">
+              <option value="5">5</option>
+              <option value="10" selected>10</option>
+              <option value="25">25</option>
+              <option value="50">50</option>
+            </select>
+            <span class="ml-2 text-nowrap">entrées</span>
+          </div>
+
+          <div class="d-flex align-items-center w-100 w-md-auto">
+            <span class="mr-2 text-nowrap">Recherche:</span>
+            <input type="text" class="form-control form-control-sm" [formControl]="searchControl" [placeholder]="config().searchPlaceholder || 'Rechercher...'">
+          </div>
+        </div>
+
+        <!-- Table Content -->
+        <div class="table-responsive">
+          <table class="table table-hover table-borderless border-v">
+            <thead>
+              <tr role="row">
+                @for (header of headers(); track header.key) {
+                <th (click)="header.sortable ? toggleSort(header.key) : null"
+                  [style.cursor]="header.sortable ? 'pointer' : 'default'"
+                  [class]="header.class || ''">
+                  <div class="d-flex align-items-center justify-content-between">
+                    <span class="text-nowrap">{{ header.label }}</span>
+                    @if (header.sortable && sortKey() === header.key) {
+                    <i class="fe fe-12" [ngClass]="sortDir() === 'asc' ? 'fe-chevron-up' : 'fe-chevron-down'"></i>
+                    }
+                  </div>
+                </th>
+                }
+              </tr>
+            </thead>
+            <tbody>
+              @for (row of paginatedData(); track row) {
+              <tr>
+                @for (header of headers(); track header.key) {
+                <td [class]="header.class || ''">
+                  <!-- Default Rendering Or Custom Template -->
+                  <ng-container
+                    *ngTemplateOutlet="rowTemplate || defaultCell; context: { $implicit: row, key: header.key, value: row[header.key] }"></ng-container>
+                </td>
+                }
+              </tr>
+              } @empty {
+              <tr>
+                <td [attr.colspan]="headers().length" class="text-center text-muted py-5">
+                  Aucune donnée disponible.
+                </td>
+              </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Footer Controls (Pagination Info & Links) -->
+        <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center mt-3 text-center text-sm-left">
+          <div class="text-muted small mb-3 mb-sm-0">
+            Affichage de {{ displayRange().start }} à {{ displayRange().end }} sur {{ displayRange().total }} entrées
+          </div>
+
+          <nav aria-label="Page navigation">
+            <ul class="pagination pagination-sm mb-0">
+              <li class="page-item" [class.disabled]="currentPage() === 1">
+                <a class="page-link" href="javascript:void(0);" (click)="setPage(currentPage() - 1)">
+                  <span class="d-none d-sm-inline">Précédent</span>
+                  <span class="d-inline d-sm-none">&laquo;</span>
+                </a>
+              </li>
+
+              <li class="page-item active d-sm-none">
+                <span class="page-link">{{ currentPage() }} / {{ totalPages() }}</span>
+              </li>
+
+              @for (p of pages(); track p) {
+              <li class="page-item d-none d-sm-inline" [class.active]="currentPage() === p">
+                <a class="page-link" href="javascript:void(0);" (click)="setPage(p)">{{ p }}</a>
+              </li>
+              }
+
+              <li class="page-item" [class.disabled]="currentPage() === totalPages() || totalPages() === 0">
+                <a class="page-link" href="javascript:void(0);" (click)="setPage(currentPage() + 1)">
+                  <span class="d-none d-sm-inline">Suivant</span>
+                  <span class="d-inline d-sm-none">&raquo;</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Default Cell Template -->
+<ng-template #defaultCell let-value="value">
+  {{ value }}
+</ng-template>

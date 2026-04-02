@@ -1,0 +1,142 @@
+<div class="row justify-content-center">
+  <div class="col-12">
+    
+    <!-- Page Header -->
+    <div class="d-flex flex-column flex-sm-row align-items-sm-center justify-content-between mb-4">
+      <div class="mb-3 mb-sm-0">
+        <h2 class="h3 page-title text-uppercase mb-0">Gestion des Clients (CRM)</h2>
+        <p class="text-muted mb-0">Suivi et gestion de votre base de données clients.</p>
+      </div>
+      <div>
+        <button type="button" class="btn btn-primary btn-lg px-4 w-100 w-sm-auto" (click)="openModal()">
+          <i class="fe fe-plus fe-12 mr-2"></i>Nouveau Client
+        </button>
+      </div>
+    </div>
+
+    <!-- Data Table Integration -->
+    <div class="row">
+      <div class="col-md-12">
+        <app-generic-data-table [data]="customers()" [headers]="headers">
+          
+          <!-- Custom Row Template for CRM Page -->
+          <ng-template #rowTemplate let-row let-key="key" let-value="value">
+            
+            @switch (key) {
+              
+              @case ('name') {
+                <div class="d-flex align-items-center">
+                  <div class="avatar avatar-sm mr-3">
+                    <img src="assets/avatars/face-3.jpg" alt="..." class="avatar-img rounded-circle">
+                  </div>
+                  <div>
+                    <span class="mb-0 h6">{{ value }}</span>
+                    <p class="mb-0 text-muted small">{{ row.email }}</p>
+                  </div>
+                </div>
+              }
+              
+              @case ('status') {
+                <span class="badge badge-pill px-3 py-2" 
+                      [ngClass]="{
+                        'badge-success': value === 'Actif',
+                        'badge-warning': value === 'Prospect',
+                        'badge-danger': value === 'Inactif'
+                      }">
+                  {{ value }}
+                </span>
+              }
+              
+              @case ('actions') {
+                <div class="d-flex align-items-center">
+                  <button class="btn btn-sm btn-outline-info mr-1" title="Modifier">
+                    <i class="fe fe-edit fe-12"></i>
+                  </button>
+                  <button class="btn btn-sm btn-outline-danger" title="Supprimer" (click)="deleteCustomer(row.id)">
+                    <i class="fe fe-trash fe-12"></i>
+                  </button>
+                </div>
+              }
+              
+              @default {
+                <span class="text-secondary">{{ value }}</span>
+              }
+            }
+            
+          </ng-template>
+
+        </app-generic-data-table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Angular-Managed Modal (Sans JQuery) -->
+@if (isModalOpen()) {
+  <div class="modal-backdrop fade show" style="display: block;"></div>
+  
+  <div class="modal fade show" tabindex="-1" role="dialog" style="display: block; padding-top: 100px;">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content shadow-lg border-0">
+        
+        <div class="modal-header border-0 pb-0">
+          <h5 class="modal-title font-weight-bold">Ajouter un nouveau client</h5>
+          <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        
+        <form [formGroup]="customerForm" (ngSubmit)="onSubmit()">
+          <div class="modal-body pt-4">
+            
+            <div class="form-group mb-3">
+              <label class="form-label font-weight-bold">Nom Complet</label>
+              <input type="text" class="form-control" formControlName="name" placeholder="Ex: Jean Dupont">
+              @if (customerForm.get('name')?.invalid && customerForm.get('name')?.touched) {
+                <small class="text-danger">Le nom est requis (min. 3 caractères).</small>
+              }
+            </div>
+            
+            <div class="form-group mb-3">
+              <label class="form-label font-weight-bold">Entreprise</label>
+              <input type="text" class="form-control" formControlName="company" placeholder="Ex: TechSolutions">
+            </div>
+            
+            <div class="form-group mb-3">
+              <label class="form-label font-weight-bold">Email</label>
+              <input type="email" class="form-control" formControlName="email" placeholder="example@domain.com">
+            </div>
+            
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group mb-3">
+                  <label class="form-label font-weight-bold">Statut Initial</label>
+                  <select class="form-control" formControlName="status">
+                    <option value="Actif">Actif</option>
+                    <option value="Prospect">Prospect</option>
+                    <option value="Inactif">Inactif</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group mb-3">
+                  <label class="form-label font-weight-bold">Date de Contact</label>
+                  <input type="date" class="form-control" formControlName="lastContactDate">
+                </div>
+              </div>
+            </div>
+            
+          </div>
+          
+          <div class="modal-footer border-0">
+            <button type="button" class="btn btn-light px-4" (click)="closeModal()">Annuler</button>
+            <button type="submit" class="btn btn-primary px-4" [disabled]="customerForm.invalid">Enregistrer</button>
+          </div>
+          
+        </form>
+        
+      </div>
+    </div>
+  </div>
+}

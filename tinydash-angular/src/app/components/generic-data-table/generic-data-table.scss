@@ -1,0 +1,68 @@
+/* generic-data-table.scss */
+.table thead th {
+  user-select: none;
+  background-color: #f8f9fa;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.table tbody tr:hover {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+.pagination {
+  margin: 0;
+}
+
+.page-link {
+  color: #6c757d;
+  background-color: transparent;
+  border: 1px solid #dee2e6;
+  
+  &:hover {
+    color: #1b68ff;
+    background-color: #f8f9fa;
+  }
+}
+
+.page-item.active .page-link {
+  background-color: #1b68ff;
+  border-color: #1b68ff;
+  color: #fff;
+}
+
+.page-item.disabled .page-link {
+  color: #adb5bd;
+  pointer-events: none;
+}
+
+/* Icons styling */
+.fe-chevron-up, .fe-chevron-down {
+  margin-left: 5px;
+  color: #1b68ff;
+}
+
+/* Responsiveness adjustments */
+@media (max-width: 575.98px) {
+  .pagination-sm .page-link {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+  }
+  
+  .card-body {
+    padding: 1rem;
+  }
+  
+  .table td, .table th {
+    padding: 0.75rem 0.5rem;
+    font-size: 13px;
+  }
+  
+  .form-control-sm {
+    height: calc(1.5em + 0.5rem + 2px);
+  }
+}
+
+.table-responsive {
+  border: 0;
+  margin-bottom: 0;
+}

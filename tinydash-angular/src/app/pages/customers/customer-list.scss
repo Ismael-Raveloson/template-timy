@@ -1,0 +1,74 @@
+/* customer-list.scss */
+.badge-pill {
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.modal-backdrop.show {
+  opacity: 0.5;
+  background-color: #000;
+  z-index: 1050;
+}
+
+.modal.show {
+  display: block;
+  z-index: 1060;
+  pointer-events: auto;
+}
+
+.modal-dialog {
+  max-width: 500px;
+  margin: 1.75rem auto;
+}
+
+.modal-content {
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+.form-label {
+  font-size: 13px;
+  color: #6c757d;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.form-control {
+  font-size: 14px;
+  height: 42px;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+  
+  &:focus {
+    border-color: #1b68ff;
+    box-shadow: 0 0 0 0.2rem rgba(27, 104, 255, 0.1);
+  }
+}
+
+.avatar-img {
+  border: 2px solid #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary {
+  background-color: #1b68ff;
+  border-color: #1b68ff;
+  border-radius: 8px;
+  font-weight: 600;
+  
+  &:hover {
+    background-color: #0f54ff;
+    border-color: #0d4de6;
+  }
+}
+
+.btn-light {
+  background-color: #f8f9fa;
+  border-color: #f8f9fa;
+  border-radius: 8px;
+  font-weight: 600;
+  
+  &:hover {
+    background-color: #e9ecef;
+  }
+}
