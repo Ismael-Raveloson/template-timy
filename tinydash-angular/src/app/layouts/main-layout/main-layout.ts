@@ -11,18 +11,24 @@ import { FooterComponent } from '../../components/footer/footer';
   templateUrl: './main-layout.html',
   styleUrl: './main-layout.scss'
 })
-export class MainLayoutComponent {
+export class MainLayoutComponent { 
   isCollapsed = false;
 
-  toggleSidebar() {
+  toggleSidebar(){
     this.isCollapsed = !this.isCollapsed;
-    
-    // Legacy support for apps.js classes if needed, 
-    // but we can just use [class.collapsed] on a wrapper.
     if (this.isCollapsed) {
       document.body.classList.add('collapsed');
     } else {
       document.body.classList.remove('collapsed');
     }
   }
+
+  onMouseEnter(){
+    if(this.isCollapsed){
+      this.isCollapsed = false;
+      document.body.classList.remove('collapsed');  
+    }
+  }
+
+
 }

@@ -1,7 +1,7 @@
 
 <div class="wrapper">
   <app-navbar (toggleSidebar)="toggleSidebar()"></app-navbar>
-  <app-sidebar></app-sidebar>
+  <app-sidebar (onMouseEnterSidebar)="onMouseEnter()" [isCollapsed]="isCollapsed" ></app-sidebar>
   <main role="main" class="main-content">
     <div class="container-fluid">
       <router-outlet></router-outlet>

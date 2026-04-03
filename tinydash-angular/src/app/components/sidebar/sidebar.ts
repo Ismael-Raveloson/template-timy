@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, input, Output } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
@@ -8,4 +8,11 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.scss'
 })
-export class SidebarComponent {}
+export class SidebarComponent {
+  @Output() onMouseEnterSidebar = new EventEmitter<void>();
+  isCollapsed = input(false);
+
+  onMouseEnter(){
+    this.onMouseEnterSidebar.emit();
+  }
+}
